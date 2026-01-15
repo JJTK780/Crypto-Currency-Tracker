@@ -1,55 +1,61 @@
-import { HiArrowSmUp as UpArrow } from 'react-icons/hi'
-import { HiArrowSmDown as DownArrow } from 'react-icons/hi'
-import { HiOutlineBell as BellIcon, HiOutlineTrash as TrashIcon } from 'react-icons/hi'
+import { HiArrowSmUp as UpArrow } from "react-icons/hi";
+import { HiArrowSmDown as DownArrow } from "react-icons/hi";
+import {
+  HiOutlineBell as BellIcon,
+  HiOutlineTrash as TrashIcon,
+} from "react-icons/hi";
 
 // Components
-import CoinDetailsModal from './CoinDetailsModal'
-import PriceAlertForm from './PriceAlertForm'
+import CoinDetailsModal from "./CoinDetailsModal";
+import PriceAlertForm from "./PriceAlertForm";
 
 // Helpers
-import priceFormatter from '../helpers/priceFormatter'
-import formatPriceChange from '../helpers/formatPriceChange'
+import priceFormatter from "../helpers/priceFormatter";
+import formatPriceChange from "../helpers/formatPriceChange";
 
 // Context
-import { useContext } from 'react'
-import { CoinContext } from '../context/CoinProvider'
-import { usePriceAlerts } from '../context/PriceAlertProvider'
+import { useContext } from "react";
+import { CoinContext } from "../context/CoinProvider";
+import { usePriceAlerts } from "../context/PriceAlertProvider";
 
 // Hooks
-import { useState } from 'react'
+import { useState } from "react";
 
 // Types
-import { Coin } from '../types/CoinTypes'
+import { Coin } from "../types/CoinTypes";
 
 interface CoinCardProps {
-  coin: Coin
+  coin: Coin;
 }
 
 export default function CoinCard({ coin }: CoinCardProps) {
-  const { currency } = useContext(CoinContext)
-  const { alerts, removeAlert } = usePriceAlerts()
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isAlertFormOpen, setIsAlertFormOpen] = useState(false)
-  const isPriceChangePositive = coin.price_change_percentage_1h_in_currency > 0
-  const priceChangeColor = isPriceChangePositive
-    ? 'text-emerald-500'
-    : 'text-red-500'
+  const { currency } = useContext(CoinContext);
+  const { alerts, removeAlert } = usePriceAlerts();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAlertFormOpen, setIsAlertFormOpen] = useState(false);
+  const priceChange = coin.price_change_percentage_1h_in_currency;
 
-  const alertForCoin = alerts.find((alert) => alert.coinId === coin.id)
+  const isPriceChangePositive =
+    typeof priceChange === "number" && priceChange > 0;
+  const priceChangeColor = isPriceChangePositive
+    ? "text-emerald-500"
+    : "text-red-500";
+
+  const alertForCoin = alerts.find((alert) => alert.coinId === coin.id);
 
   function toggleModal() {
-    setIsModalOpen((previous) => !previous)
+    setIsModalOpen((previous) => !previous);
   }
 
   function toggleAlertForm() {
-    setIsAlertFormOpen((previous) => !previous)
+    setIsAlertFormOpen((previous) => !previous);
   }
 
   const handleRemoveAlert = () => {
     if (alertForCoin) {
-      removeAlert(alertForCoin.id)
+      removeAlert(alertForCoin.id);
     }
-  }
+  };
 
   return (
     <>
@@ -63,7 +69,9 @@ export default function CoinCard({ coin }: CoinCardProps) {
 
           <div>
             <h2 className="font-medium dark:text-slate-200">{coin.name}</h2>
-            <span className="text-slate-400 dark:text-slate-400">{coin.symbol.toUpperCase()}</span>
+            <span className="text-slate-400 dark:text-slate-400">
+              {coin.symbol.toUpperCase()}
+            </span>
           </div>
         </button>
 
@@ -123,5 +131,5 @@ export default function CoinCard({ coin }: CoinCardProps) {
         </div>
       )}
     </>
-  )
+  );
 }

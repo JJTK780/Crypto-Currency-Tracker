@@ -1,4 +1,8 @@
-export default function formatPriceChange(price: number): string {
-  if (price > 0) return price.toFixed(2).toString()
-  return price.toFixed(2).toString().slice(1)
+export default function formatPriceChange(
+  price: number | null | undefined
+): string {
+  if (price == null || Number.isNaN(price)) return "—";
+
+  const fixed = price.toFixed(2);
+  return price >= 0 ? fixed : fixed.slice(1);
 }
