@@ -74,3 +74,4 @@ coverage/
 # Test output
 jest/
 test-results/
+.vercel
