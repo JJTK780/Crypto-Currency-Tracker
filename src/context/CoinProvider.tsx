@@ -2,7 +2,6 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useMarkets } from "../hooks/useMarkets";
-
 // Libs
 import axios from "axios";
 
@@ -17,7 +16,7 @@ import {
 
 export const CoinContext = createContext<CoinContextType>(null!);
 
-const TRENDING_API_URL = "https://api.coingecko.com/api/v3/search/trending";
+const TRENDING_API_URL = "/api/coingecko/trending";
 
 interface CoinProviderProps {
   children: ReactNode;
@@ -32,9 +31,9 @@ export default function CoinProvider({ children }: CoinProviderProps) {
     queryKey: ["trending"],
     queryFn: () => axios.get(TRENDING_API_URL),
     onSuccess: (response) => {
-      const data = response.data.coins.map((coin: { item: TrendingCoin }) => ({
-        ...coin.item,
-      }));
+      const data = response.data.data.coins.map(
+        (coin: { item: TrendingCoin }) => coin.item,
+      );
       setTrending(data);
     },
   });
