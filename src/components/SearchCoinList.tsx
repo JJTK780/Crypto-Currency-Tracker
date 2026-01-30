@@ -20,10 +20,8 @@ export default function SearchCoinList() {
     if (!value) return;
 
     try {
-      const response = await axios.get(
-        `https://api.coingecko.com/api/v3/search?query=${value}`
-      );
-      setCoins(response.data.coins);
+      const response = await axios.get(`/api/coingecko/search?query=${value}`);
+      setCoins(response.data.data.coins);
     } catch (error) {
       console.error("Error searching coins:", error);
       setCoins([]);

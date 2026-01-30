@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import CoinProvider from "./context/CoinProvider";
 import { ClerkProvider } from "@clerk/clerk-react";
+
+import CoinProvider from "./context/CoinProvider";
 import { PriceAlertProvider } from "./context/PriceAlertProvider";
 
-const FIVE_MINUTES_INTERVAL = 1000 * 60 * 5;
-
+// Frontend env check (correct place)
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Clerk Publishable Key");
 }
@@ -16,8 +17,10 @@ if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchInterval: FIVE_MINUTES_INTERVAL,
+      retry: 1,
       refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      staleTime: Infinity,
     },
   },
 });
@@ -33,5 +36,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </CoinProvider>
       </QueryClientProvider>
     </ClerkProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
