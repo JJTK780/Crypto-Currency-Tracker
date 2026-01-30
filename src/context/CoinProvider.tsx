@@ -1,9 +1,9 @@
 // Hooks
-import { ReactNode, createContext, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-
+import { ReactNode, createContext, useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useMarkets } from "../hooks/useMarkets";
 // Libs
-import axios from 'axios'
+import axios from "axios";
 
 // Types
 import {
@@ -11,56 +11,52 @@ import {
   CoinState,
   Currencies,
   Coin,
-  TrendingCoin
-} from '../types/CoinTypes'
+  TrendingCoin,
+} from "../types/CoinTypes";
 
-export const CoinContext = createContext<CoinContextType>(null!)
+export const CoinContext = createContext<CoinContextType>(null!);
 
-const TRENDING_API_URL = 'https://api.coingecko.com/api/v3/search/trending'
+const TRENDING_API_URL = "/api/coingecko/trending";
 
 interface CoinProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export default function CoinProvider({ children }: CoinProviderProps) {
-  const [currency, setCurrency] = useState<Currencies>('EUR')
-  const [trending, setTrending] = useState<TrendingCoin[]>([])
-  const [coins, setCoins] = useState<Coin[]>([])
-
-  const COINS_API_URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h&locale=en`
+  const [currency, setCurrency] = useState<Currencies>("EUR");
+  const [trending, setTrending] = useState<TrendingCoin[]>([]);
+  const [coins, setCoins] = useState<Coin[]>([]);
 
   const trendingQuery = useQuery({
-    queryKey: ['trending'],
+    queryKey: ["trending"],
     queryFn: () => axios.get(TRENDING_API_URL),
     onSuccess: (response) => {
-      const data = response.data.coins.map((coin: { item: TrendingCoin }) => ({
-        ...coin.item
-      }))
-      setTrending(data)
-    }
-  })
-
-  const { status } = useQuery({
-    queryKey: ['coins', trendingQuery.data, currency],
-    queryFn: () => axios.get(COINS_API_URL),
-    onSuccess: (response) => {
-      setCoins(response.data)
+      const data = response.data.data.coins.map(
+        (coin: { item: TrendingCoin }) => coin.item,
+      );
+      setTrending(data);
     },
-    enabled: trendingQuery.data !== null
-  })
+  });
+
+  const { data: marketCoins, status } = useMarkets({ currency });
+  useEffect(() => {
+    if (marketCoins) {
+      setCoins(marketCoins);
+    }
+  }, [marketCoins]);
 
   function updateCurrency(currency: Currencies) {
-    setCurrency(currency)
+    setCurrency(currency);
   }
 
   const data: CoinState = {
     trending,
-    coins
-  }
+    coins,
+  };
 
   return (
     <CoinContext.Provider value={{ data, status, currency, updateCurrency }}>
       {children}
     </CoinContext.Provider>
-  )
+  );
 }
