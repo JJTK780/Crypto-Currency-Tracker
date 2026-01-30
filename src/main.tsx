@@ -27,7 +27,10 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider
+      publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
+      clerkJSUrl="https://clerk.services"
+    >
       <QueryClientProvider client={queryClient}>
         <CoinProvider>
           <PriceAlertProvider>
