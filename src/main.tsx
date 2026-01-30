@@ -29,7 +29,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ClerkProvider
       publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
-      clerkJSUrl="https://cdn.clerk.com"
+      clerkJSUrl="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
     >
       <QueryClientProvider client={queryClient}>
         <CoinProvider>
