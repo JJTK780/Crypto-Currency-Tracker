@@ -43,7 +43,6 @@ Desktop.ini
 .tailwindcss/
 
 # npm package lock files
-package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
@@ -65,7 +64,6 @@ app-showcase/
 out/
 .cache/
 vite.config.ts
-vite-env.d.ts
 
 # Coverage reports
 coverage/
