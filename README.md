@@ -2,7 +2,10 @@
 
 ## 1. Project Overview
 
-Trackibit is a React-based Crypto Currency Tracker web application designed to provide users with real-time cryptocurrency data, news, and personalized price alerts. It offers a user-friendly interface to explore trending coins, search for cryptocurrencies, manage favorites, and stay updated with the latest crypto news. The app integrates user authentication and supports notifications for price alerts.
+**Trackibit** is a production-ready cryptocurrency tracking web application built with **React + TypeScript** and deployed on **Vercel**.  
+It provides real-time crypto market data, trending coins, search, curated news, and user-specific features such as authentication and price alerts.
+
+The application is designed with **scalability, API safety, and performance** in mind, using backend proxy APIs, caching strategies, and modern state-management patterns.
 
 ![image alt](https://github.com/JJTK780/Crypto-Currency-Tracker/blob/ee9a5bccbe1a07c37c65934dd1ac8a2f7358f390/screenshot%20github%20cct.png)
 
@@ -50,14 +53,43 @@ Trackibit is a React-based Crypto Currency Tracker web application designed to p
 
 ## 3. Architecture and Technology Stack
 
-- **Frontend:** React with TypeScript
-- **State Management:** React Context API
-- **Data Fetching:** React Query (@tanstack/react-query)
-- **Authentication:** Clerk React SDK
-- **Routing:** React Router DOM
-- **Styling:** Tailwind CSS, Headless UI
-- **Notifications:** Web Notifications API
-- **Persistence:** localStorage for price alerts
+Trackibit follows a **frontend + serverless backend** architecture.
+
+### Why this matters:
+
+- No API keys exposed to the browser
+- Rate limits are easier to manage
+- Caching improves performance
+- Production-safe architecture
+
+### Frontend
+
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- Headless UI
+- React Router DOM
+
+### State & Data
+
+- React Context API
+- @tanstack/react-query
+- LocalStorage (alerts & preferences)
+
+### Authentication
+
+- Clerk React SDK  
+  _(Development instance for Phase 1 / beta)_
+
+### Backend / Infrastructure
+
+- Vercel Serverless Functions
+- Backend proxy for:
+  - CoinGecko API
+  - News API
+- Edge-friendly caching headers
+
+---
 
 ## 4. Context Providers and State Management
 
@@ -65,46 +97,72 @@ Trackibit is a React-based Crypto Currency Tracker web application designed to p
 - **FavoritesProvider:** Manages user's favorite coins.
 - **PriceAlertProvider:** Manages price alerts, including adding, removing, toggling, and triggering notifications.
 
-## 5. Component Structure and Responsibilities
+## 5. Component Responsibilities
 
-- **App.tsx:** Main app component, sets up routing, layout, and tab navigation.
-- **MenuTabs.tsx:** Defines the tab labels for navigation.
-- **MenuPanels.tsx:** Renders content for each tab (Trending, Cryptocurrencies, Search, Favourites, News).
-- **CoinCard.tsx:** Displays individual coin details.
-- **TrendingCoinCard.tsx:** Displays trending coin with ranking.
-- **SearchCoinList.tsx:** Search interface for coins.
-- **NewsList.tsx:** Displays crypto news articles.
-- **PriceAlertForm.tsx:** Form to create new price alerts.
-- **PriceAlertList.tsx:** Lists existing price alerts with controls.
-- **Layout.tsx:** General page layout including header/footer.
+- `App.tsx` – Application shell & routing
+- `MenuTabs.tsx` – Navigation tabs
+- `MenuPanels.tsx` – Tab content rendering
+- `CoinCard.tsx` – Individual coin display
+- `TrendingCoinCard.tsx` – Trending coin UI
+- `SearchCoinList.tsx` – Search logic & UI
+- `NewsList.tsx` – Crypto news rendering
+- `PriceAlertForm.tsx` – Alert creation
+- `PriceAlertList.tsx` – Alert management
+- `Layout.tsx` – Shared layout (header/footer)
 
-## 6. Data Fetching and Caching Strategy
+---
 
-- React Query is configured with a 5-minute refetch interval.
-- Coin data and news are fetched from external APIs (not detailed here).
-- Data is cached and updated in the background for smooth UX.
+## 6. Backend Proxy & Caching Strategy
 
-## 7. Notification and Alert System
+-### CoinGecko
 
-- Price alerts are checked against current coin prices.
-- When alert conditions are met, browser notifications are triggered if permission is granted.
-- Alerts are marked inactive after triggering to avoid repeated notifications.
-- Fallback alert popups are used if notifications are not permitted.
+- All CoinGecko requests are routed through `/api/coingecko/*`
+- Caching: **30–60 seconds**
+- Prevents direct client exposure and rate-limit issues
 
-## 8. Authentication Flow
+### News API
+
+- Routed through `/api/news`
+- API key stored securely in Vercel environment variables
+- Caching: **5–10 minutes**
+
+---
+
+## 7. Data Fetching Strategy
+
+- React Query handles:
+  - Caching
+  - Background updates
+  - Request deduplication
+- Global defaults:
+  - Reduced retries
+  - Disabled refetch on focus
+  - Stable stale times for market data
+
+## 8. Notification and Alert System
+
+-
+- Uses the Web Notifications API
+- Requests permission on alert creation
+- Alerts auto-disable after triggering
+- Fallback UI alerts used when notifications are blocked
+
+---
+
+## 9. Authentication Flow
 
 - Clerk handles user sign-in, sign-up, and session management.
 - Authentication state is checked before rendering the main app.
 - User-specific data like favorites and alerts are scoped to authenticated users.
 
-## 9. Styling and UI Framework
+## 10. Styling and UI Framework
 
 - Tailwind CSS provides utility-first styling.
 - Headless UI Tabs ensure accessible tab navigation.
 - Dark mode support is included.
 - Responsive design adapts to different screen sizes.
 
-## 10. Running and Testing the Project
+## 11. Running and Testing the Project
 
 - Install dependencies: `npm install`
 - Start development server: `npm run dev`
@@ -112,13 +170,9 @@ Trackibit is a React-based Crypto Currency Tracker web application designed to p
 - Test all tabs, price alert creation and notifications, authentication flows, and favorites management.
 - Ensure notifications permissions are granted for alerts.
 
-## 11. Possible Extensions and Notes
+## 12. Possible Extensions and Notes
 
-- Add more detailed coin analytics and charts.
-- Support for multiple alert types (volume, market cap).
-- User profile and settings management.
-- Integration with additional news sources.
-- Improved error handling and loading states.
+- Please refer wiki https://github.com/JJTK780/trackibit/wiki
 
 ## Licence
 
