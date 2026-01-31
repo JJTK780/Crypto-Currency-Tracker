@@ -59,7 +59,7 @@ export default function CoinCard({ coin }: CoinCardProps) {
 
   return (
     <>
-      <div className="flex justify-between gap-4 p-4 bg-white border rounded-md shadow-sm border-slate-200 dark:bg-slate-900 dark:border-slate-700">
+      <div className="flex justify-between gap-4 p-4 bg-white border rounded-md shadow-sm border-gray-200 dark:bg-black dark:border-gray-800 hover:shadow-md transition-shadow">
         <button className="flex gap-4 text-left" onClick={toggleModal}>
           <img
             className="w-12 aspect-square"
@@ -68,15 +68,15 @@ export default function CoinCard({ coin }: CoinCardProps) {
           />
 
           <div>
-            <h2 className="font-medium dark:text-slate-200">{coin.name}</h2>
-            <span className="text-slate-400 dark:text-slate-400">
+            <h2 className="font-medium dark:text-white">{coin.name}</h2>
+            <span className="text-gray-500 dark:text-gray-400">
               {coin.symbol.toUpperCase()}
             </span>
           </div>
         </button>
 
         <div className="text-end flex items-center gap-3">
-          <h3 className="font-medium dark:text-slate-200">
+          <h3 className="font-medium dark:text-white">
             {priceFormatter(coin.current_price, currency)}
           </h3>
 
@@ -91,7 +91,7 @@ export default function CoinCard({ coin }: CoinCardProps) {
             <button
               onClick={handleRemoveAlert}
               aria-label="Remove price alert"
-              className="text-slate-400 hover:text-emerald-500 dark:hover:text-emerald-400"
+              className="text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400"
             >
               <TrashIcon size={20} />
             </button>
@@ -99,7 +99,7 @@ export default function CoinCard({ coin }: CoinCardProps) {
             <button
               onClick={toggleAlertForm}
               aria-label="Add price alert"
-              className="text-slate-400 hover:text-emerald-500 dark:hover:text-emerald-400"
+              className="text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-400"
             >
               <BellIcon size={20} />
             </button>
@@ -115,7 +115,7 @@ export default function CoinCard({ coin }: CoinCardProps) {
 
       {isAlertFormOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-md shadow-lg max-w-md w-full">
+          <div className="bg-white dark:bg-black p-6 rounded-md shadow-lg max-w-md w-full border border-gray-200 dark:border-gray-800">
             <PriceAlertForm
               coinId={coin.id}
               coinName={coin.name}

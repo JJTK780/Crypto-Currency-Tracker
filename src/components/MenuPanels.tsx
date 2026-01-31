@@ -24,11 +24,11 @@ export default function MenuPanels() {
 
   if (status === "error")
     return (
-      <div className="space-y-2 text-center dark:text-slate-400">
+      <div className="space-y-2 text-center text-gray-600 dark:text-gray-400">
         <div>Oops! Something went wrong...</div>
         <button
           onClick={refreshPage}
-          className="px-2 py-1 font-medium transition-colors bg-white border rounded-md shadow-sm border-slate-200 hover:text-emerald-500 dark:bg-slate-900 dark:border-slate-700 dark:hover:text-emerald-400"
+          className="px-2 py-1 font-medium transition-colors bg-white border rounded-md shadow-sm border-gray-200 hover:text-emerald-500 dark:bg-black dark:border-gray-800 dark:hover:text-emerald-400"
         >
           Try Again
         </button>
@@ -61,7 +61,7 @@ export default function MenuPanels() {
 
       <Tab.Panel>
         {favorites.length === 0 ? (
-          <div className="text-center text-slate-600 dark:text-slate-400">
+          <div className="text-center text-gray-600 dark:text-gray-400">
             No favorites yet. Click the heart icon on a coin to add it to
             favorites.
           </div>

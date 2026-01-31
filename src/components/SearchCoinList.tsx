@@ -37,7 +37,7 @@ export default function SearchCoinList() {
   return (
     <>
       <input
-        className="block w-full px-4 py-2 mx-auto mb-4 border rounded-md shadow-sm border-slate-200 placeholder:text-slate-300 focus:outline-none sm:max-w-md"
+        className="block w-full px-4 py-2 mx-auto mb-4 border rounded-md shadow-sm border-gray-200 dark:border-gray-800 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 sm:max-w-md bg-white dark:bg-black text-black dark:text-white"
         onChange={handleChange}
         value={value}
         placeholder="Search coins eg. JJTK coin"

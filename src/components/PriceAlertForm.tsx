@@ -36,14 +36,14 @@ export default function PriceAlertForm({ coinId: initialCoinId = "", coinName: i
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-md shadow-sm dark:border-slate-700">
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-md shadow-sm border-gray-200 dark:border-gray-800">
       <div>
         <label className="block mb-1 font-medium">Coin ID</label>
         <input
           type="text"
           value={coinId}
           onChange={(e) => setCoinId(e.target.value)}
-          className="w-full px-3 py-2 border rounded-md dark:bg-slate-800 dark:border-slate-600"
+          className="w-full px-3 py-2 border rounded-md border-gray-300 dark:bg-gray-950 dark:border-gray-700 dark:text-white"
           placeholder="e.g. bitcoin"
           required
           readOnly={!!initialCoinId}
@@ -55,7 +55,7 @@ export default function PriceAlertForm({ coinId: initialCoinId = "", coinName: i
           type="text"
           value={coinName}
           onChange={(e) => setCoinName(e.target.value)}
-          className="w-full px-3 py-2 border rounded-md dark:bg-slate-800 dark:border-slate-600"
+          className="w-full px-3 py-2 border rounded-md border-gray-300 dark:bg-gray-950 dark:border-gray-700 dark:text-white"
           placeholder="e.g. Bitcoin"
           required
           readOnly={!!initialCoinName}
@@ -67,7 +67,7 @@ export default function PriceAlertForm({ coinId: initialCoinId = "", coinName: i
           type="number"
           value={targetPrice}
           onChange={(e) => setTargetPrice(e.target.value)}
-          className="w-full px-3 py-2 border rounded-md dark:bg-slate-800 dark:border-slate-600"
+          className="w-full px-3 py-2 border rounded-md border-gray-300 dark:bg-gray-950 dark:border-gray-700 dark:text-white"
           placeholder="e.g. 50000"
           required
           min="0"
@@ -79,7 +79,7 @@ export default function PriceAlertForm({ coinId: initialCoinId = "", coinName: i
         <select
           value={direction}
           onChange={(e) => setDirection(e.target.value as "above" | "below")}
-          className="w-full px-3 py-2 border rounded-md dark:bg-slate-800 dark:border-slate-600"
+          className="w-full px-3 py-2 border rounded-md border-gray-300 dark:bg-gray-950 dark:border-gray-700 dark:text-white"
         >
           <option value="above">Above</option>
           <option value="below">Below</option>
