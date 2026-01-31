@@ -36,6 +36,9 @@ interface CoinChartProps {
 export default function CoinChart({ name, data }: CoinChartProps) {
   const { currency } = useContext(CoinContext)
 
+  // Detect dark mode
+  const isDarkMode = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches || document.documentElement.classList.contains('dark');
+
   const options = {
     responsive: true,
     plugins: {
@@ -45,11 +48,31 @@ export default function CoinChart({ name, data }: CoinChartProps) {
       title: {
         display: true,
         text: `Last 7d ${name || 'coin'} price`,
-        color: 'rgba(51, 65, 85, 0.9)'
+        color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.9)'
       },
       tooltip: {
         displayColors: false,
-        backgroundColor: 'rgba(15, 23, 42, 0.8)'
+        backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.8)',
+        titleColor: isDarkMode ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+        bodyColor: isDarkMode ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)'
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
+        },
+        grid: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+        }
+      },
+      y: {
+        ticks: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)'
+        },
+        grid: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+        }
       }
     }
   }

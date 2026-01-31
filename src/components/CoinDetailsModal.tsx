@@ -107,28 +107,28 @@ export default function CoinDetailsModal({
                     </tr>
 
                     <tr>
-                      <th className="py-4 font-medium text-start dark:text-slate-300">
+                      <th className="py-4 font-medium text-start dark:text-gray-300">
                         {coin.name} Price:
                       </th>
                       <td>{priceFormatter(coin.current_price, currency)}</td>
                     </tr>
 
                     <tr>
-                      <th className="py-4 font-medium text-start dark:text-slate-300">
+                      <th className="py-4 font-medium text-start dark:text-gray-300">
                         Market Cap:
                       </th>
                       <td>{priceFormatter(coin.market_cap, currency)}</td>
                     </tr>
 
                     <tr>
-                      <th className="py-4 font-medium text-start dark:text-slate-300">
+                      <th className="py-4 font-medium text-start dark:text-gray-300">
                         24h Low:
                       </th>
                       <td>{priceFormatter(coin.low_24h, currency)}</td>
                     </tr>
 
                     <tr>
-                      <th className="py-4 font-medium text-start dark:text-slate-300">
+                      <th className="py-4 font-medium text-start dark:text-gray-300">
                         24h High:
                       </th>
                       <td>{priceFormatter(coin.high_24h, currency)}</td>
