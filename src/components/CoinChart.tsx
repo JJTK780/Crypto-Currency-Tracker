@@ -14,6 +14,7 @@ import { Line } from 'react-chartjs-2'
 // Context
 import { useContext } from 'react'
 import { CoinContext } from '../context/CoinProvider'
+import { useTheme } from '../context/ThemeContext'
 
 // Helpers
 import getLast7DaysDates from '../helpers/getLast7DaysDates'
@@ -35,9 +36,10 @@ interface CoinChartProps {
 
 export default function CoinChart({ name, data }: CoinChartProps) {
   const { currency } = useContext(CoinContext)
+  const { resolvedTheme } = useTheme()
 
-  // Detect dark mode
-  const isDarkMode = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches || document.documentElement.classList.contains('dark');
+  // Check if dark mode is active based on app theme
+  const isDarkMode = resolvedTheme === 'dark'
 
   const options = {
     responsive: true,
