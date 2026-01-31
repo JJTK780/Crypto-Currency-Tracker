@@ -10,14 +10,14 @@ export default function SearchCoinCard({ coin, onClick }: SearchCoinCardProps) {
   return (
     <button
       onClick={() => onClick && onClick(coin)}
-      className="flex items-center justify-between w-full p-4 space-y-2 bg-white border rounded-md shadow-sm border-slate-200 dark:bg-slate-800 dark:border-slate-700"
+      className="flex items-center justify-between w-full p-4 space-y-2 bg-white border rounded-md shadow-sm border-gray-200 dark:bg-black dark:border-gray-800 hover:shadow-md transition-shadow"
       type="button"
     >
       <div>
-        <h2 className="space-x-1 font-medium dark:text-slate-200">
+        <h2 className="space-x-1 font-medium dark:text-white">
           {coin.market_cap_rank ? <span>#{coin.market_cap_rank}</span> : null}
           <span>{coin.name}</span>
-          <span className="font-normal text-slate-400 dark:text-slate-400">
+          <span className="font-normal text-gray-500 dark:text-gray-400">
             {coin.symbol.toUpperCase()}
           </span>
         </h2>

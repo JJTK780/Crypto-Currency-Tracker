@@ -14,6 +14,7 @@ import { Line } from 'react-chartjs-2'
 // Context
 import { useContext } from 'react'
 import { CoinContext } from '../context/CoinProvider'
+import { useTheme } from '../context/ThemeContext'
 
 // Helpers
 import getLast7DaysDates from '../helpers/getLast7DaysDates'
@@ -35,6 +36,10 @@ interface CoinChartProps {
 
 export default function CoinChart({ name, data }: CoinChartProps) {
   const { currency } = useContext(CoinContext)
+  const { resolvedTheme } = useTheme()
+
+  // Check if dark mode is active based on app theme
+  const isDarkMode = resolvedTheme === 'dark'
 
   const options = {
     responsive: true,
@@ -45,11 +50,31 @@ export default function CoinChart({ name, data }: CoinChartProps) {
       title: {
         display: true,
         text: `Last 7d ${name || 'coin'} price`,
-        color: 'rgba(51, 65, 85, 0.9)'
+        color: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.9)'
       },
       tooltip: {
         displayColors: false,
-        backgroundColor: 'rgba(15, 23, 42, 0.8)'
+        backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.8)',
+        titleColor: isDarkMode ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+        bodyColor: isDarkMode ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)'
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'
+        },
+        grid: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.2)'
+        }
+      },
+      y: {
+        ticks: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)'
+        },
+        grid: {
+          color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.2)'
+        }
       }
     }
   }

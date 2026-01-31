@@ -23,7 +23,7 @@ interface CoinProviderProps {
 }
 
 export default function CoinProvider({ children }: CoinProviderProps) {
-  const [currency, setCurrency] = useState<Currencies>("EUR");
+  const [currency, setCurrency] = useState<Currencies>("INR");
   const [trending, setTrending] = useState<TrendingCoin[]>([]);
   const [coins, setCoins] = useState<Coin[]>([]);
 
