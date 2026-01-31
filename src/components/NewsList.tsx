@@ -25,7 +25,7 @@ export default function NewsList() {
           href={article.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="block p-4 border rounded-md shadow-sm hover:shadow-md transition-shadow dark:border-slate-700 dark:hover:border-emerald-500"
+          className="block p-4 border rounded-md shadow-sm hover:shadow-md transition-shadow border-gray-200 dark:border-gray-800 dark:hover:border-emerald-500"
         >
           {article.urlToImage && (
             <img
@@ -35,10 +35,10 @@ export default function NewsList() {
             />
           )}
           <h3 className="text-lg font-semibold">{article.title}</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             {article.description}
           </p>
-          <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
             Source: {article.source.name} | Published:{" "}
             {new Date(article.publishedAt).toLocaleString()}
           </p>
